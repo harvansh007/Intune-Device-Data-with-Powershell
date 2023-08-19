@@ -1,4 +1,4 @@
-# Script Name - Get All Indinte device List
+# Script Name - Get All Device list from Intune
 # Script Owner - Harvansh Singh
 # Required details - This is a passwordless authentication script that will help you to full data from Intune.
 # Reuired field - $TenantID, $AppID, $AppSecret
@@ -27,8 +27,8 @@ $headers = @{
      Accept = 'application/json'
      Authorization = "Bearer $aadToken"
         } 
-#$uri = "https://graph.microsoft.com/beta/deviceManagement/managedDeviceOverview"
+
 $uri =  "https://graph.microsoft.com/beta/deviceManagement/managedDevices"
 $Devicelist = Invoke-RestMethod -Method Get -Uri $uri -Headers $headers
 $devicedata = $Devicelist.value | Select-Object  deviceName, joinType, deviceEnrollmentType,operatingSystem, complianceState, enrolledDateTime, lastSyncDateTime 
-$devicedata | Export-Csv "D:\All Devices.csv" -NoTypeInformation | Out-GridView
+$devicedata | Export-Csv "D:\Intune Automation\All Devices.csv" -NoTypeInformation | Out-GridView
