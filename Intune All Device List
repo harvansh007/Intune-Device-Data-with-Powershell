@@ -1,0 +1,34 @@
+# Script Name - Get All Indinte device List
+# Script Owner - Harvansh Singh
+# Required details - This is a passwordless authentication script that will help you to full data from Intune.
+# Reuired field - $TenantID, $AppID, $AppSecret
+
+# To get the Token key
+
+
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$TenantID = "dd1cc8ed-acee-4372-b031-850925fad8aa"
+$AppID = "1b7011b9-e994-464d-b971-4fa8b11787ea"
+$AppSecret = "vV38Q~SFt2O84kFLjbWB5N4pO4XdOIDoy0po.cnU"
+
+$ResourceAppIDuri = "https://graph.microsoft.com"
+$oauthUri = "https://login.microsoftonline.com/$TenantID/oauth2/token"
+$body = [Ordered] @{
+    resource = "$ResourceAppIDuri"
+    client_id = "$AppID"
+    client_secret = "$AppSecret"
+    grant_type = 'client_credentials'
+}
+$response = Invoke-RestMethod -Method Post -Uri $oauthUri -Body $body -ErrorAction Stop
+$aadToken = $response.access_token
+
+$headers = @{
+    'Content-Type' = 'application/json'
+     Accept = 'application/json'
+     Authorization = "Bearer $aadToken"
+        } 
+#$uri = "https://graph.microsoft.com/beta/deviceManagement/managedDeviceOverview"
+$uri =  "https://graph.microsoft.com/beta/deviceManagement/managedDevices"
+$Devicelist = Invoke-RestMethod -Method Get -Uri $uri -Headers $headers
+$devicedata = $Devicelist.value | Select-Object  deviceName, joinType, deviceEnrollmentType,operatingSystem, complianceState, enrolledDateTime, lastSyncDateTime 
+$devicedata | Export-Csv "D:\All Devices.csv" -NoTypeInformation | Out-GridView
