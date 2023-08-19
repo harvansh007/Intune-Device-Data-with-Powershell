@@ -7,9 +7,9 @@
 
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-$TenantID = "dd1cc8ed-acee-4372-b031-850925fad8aa"
-$AppID = "1b7011b9-e994-464d-b971-4fa8b11787ea"
-$AppSecret = "vV38Q~SFt2O84kFLjbWB5N4pO4XdOIDoy0po.cnU"
+$TenantID = ""
+$AppID = ""
+$AppSecret = ""
 
 $ResourceAppIDuri = "https://graph.microsoft.com"
 $oauthUri = "https://login.microsoftonline.com/$TenantID/oauth2/token"
