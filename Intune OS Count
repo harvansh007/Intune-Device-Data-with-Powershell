@@ -28,5 +28,5 @@ $headers = @{
      Authorization = "Bearer $aadToken"
         } 
 $uri = "https://graph.microsoft.com/beta/deviceManagement/managedDeviceOverview"
-$DeviceComlist = Invoke-RestMethod -Method Get -Uri $uri -Headers $headers
-$Compliancedata = $DeviceComlist.deviceOperatingSystemSummary | Export-Csv "D:\Intune Automation\Device Compliance.csv" -NoTypeInformation
+$OSlist = Invoke-RestMethod -Method Get -Uri $uri -Headers $headers
+$OSListdata = $DeviceComlist.deviceOperatingSystemSummary | Export-Csv "D:\Intune Automation\Device Compliance.csv" -NoTypeInformation
