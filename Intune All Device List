@@ -31,4 +31,4 @@ $headers = @{
 $uri =  "https://graph.microsoft.com/beta/deviceManagement/managedDevices"
 $Devicelist = Invoke-RestMethod -Method Get -Uri $uri -Headers $headers
 $devicedata = $Devicelist.value | Select-Object  deviceName, joinType, deviceEnrollmentType,operatingSystem, complianceState, enrolledDateTime, lastSyncDateTime 
-$devicedata | Export-Csv "D:\Intune Automation\All Devices.csv" -NoTypeInformation | Out-GridView
+$devicedata | Export-Csv "D:\Intune Automation\All Devices.csv" -NoTypeInformation
